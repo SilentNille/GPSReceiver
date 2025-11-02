@@ -7,6 +7,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private TextView speedTextView;
 
     private LocationManager locationManager;
+    private String currentProvider = LocationManager.GPS_PROVIDER;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,27 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         } else {
             requestLocationPermission();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.provider_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.gps_provider) {
+            currentProvider = LocationManager.GPS_PROVIDER;
+            restartLocationUpdates();
+            return true;
+        } else if (itemId == R.id.network_provider) {
+            currentProvider = LocationManager.NETWORK_PROVIDER;
+            restartLocationUpdates();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -92,6 +116,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         if (!hasLocationPermission()) {
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        locationManager.requestLocationUpdates(currentProvider, 0, 0, this);
+    }
+
+    private void restartLocationUpdates() {
+        locationManager.removeUpdates(this);
+        requestLocationUpdates();
     }
 }
