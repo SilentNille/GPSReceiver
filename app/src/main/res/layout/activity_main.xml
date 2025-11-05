@@ -8,22 +8,25 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        app.layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="296dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/provider_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Provider:" />
 
         <TextView
             android:id="@+id/latitude_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="Breitengrad:" />
 
         <TextView
@@ -34,7 +37,7 @@
 
         <TextView
             android:id="@+id/altitude_text"
-            android:layout_width="wrap_content"
+            android.layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Höhe:" />
 
@@ -43,6 +46,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Geschwindigkeit:" />
+
+        <TextView
+            android:id="@+id/accuracy_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Genauigkeit:" />
+
+        <TextView
+            android:id="@+id/bearing_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kurs:" />
+
+        <TextView
+            android:id="@+id/time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uhrzeit:" />
 
     </LinearLayout>
 

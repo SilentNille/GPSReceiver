@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -15,14 +16,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
+    private static final String TAG = "MainActivity";
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     private TextView latitudeTextView;
     private TextView longitudeTextView;
     private TextView altitudeTextView;
     private TextView speedTextView;
+    private TextView accuracyTextView;
+    private TextView bearingTextView;
+    private TextView timeTextView;
 
     private LocationManager locationManager;
     private String currentProvider = LocationManager.GPS_PROVIDER;
@@ -36,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         longitudeTextView = findViewById(R.id.longitude_text);
         altitudeTextView = findViewById(R.id.altitude_text);
         speedTextView = findViewById(R.id.speed_text);
+        accuracyTextView = findViewById(R.id.accuracy_text);
+        bearingTextView = findViewById(R.id.bearing_text);
+        timeTextView = findViewById(R.id.time_text);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -57,10 +69,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         int itemId = item.getItemId();
         if (itemId == R.id.gps_provider) {
             currentProvider = LocationManager.GPS_PROVIDER;
+            Log.d(TAG, "Provider changed to: " + currentProvider);
             restartLocationUpdates();
             return true;
         } else if (itemId == R.id.network_provider) {
             currentProvider = LocationManager.NETWORK_PROVIDER;
+            Log.d(TAG, "Provider changed to: " + currentProvider);
             restartLocationUpdates();
             return true;
         }
@@ -73,11 +87,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         double longitude = location.getLongitude();
         double altitude = location.getAltitude();
         float speed = location.getSpeed();
+        float accuracy = location.getAccuracy();
+        float bearing = location.getBearing();
+        long time = location.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        String formattedTime = sdf.format(new Date(time));
 
         latitudeTextView.setText(String.format("Breitengrad: %.6f", latitude));
         longitudeTextView.setText(String.format("Längengrad: %.6f", longitude));
         altitudeTextView.setText(String.format("Höhe: %.2f m", altitude));
         speedTextView.setText(String.format("Geschwindigkeit: %.2f km/h", speed * 3.6));
+
+        accuracyTextView.setText(String.format("Genauigkeit: %.2f m", accuracy));
+        bearingTextView.setText(String.format("Bewegungsrichtung: %.2f °", bearing));
+        timeTextView.setText("Uhrzeit: " + formattedTime);
     }
 
     @Override
