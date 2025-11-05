@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -92,26 +93,22 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         if (location.hasAltitude()) {
             altitudeTextView.setText(String.format("Höhe: %.2f m", location.getAltitude()));
-        } else {
-            altitudeTextView.setText("Höhe: N/A");
         }
 
         if (location.hasSpeed()) {
-            speedTextView.setText(String.format("Geschwindigkeit: %.2f km/h", location.getSpeed() * 3.6));
-        } else {
-            speedTextView.setText("Geschwindigkeit: N/A");
+            float speedKmh = (float) (location.getSpeed() * 3.6);
+            speedTextView.setText(String.format("Geschwindigkeit: %.2f km/h", speedKmh));
+            if (speedKmh > 5) {
+                Toast.makeText(this, "Geschwindigkeit über 5 km/h!", Toast.LENGTH_SHORT).show();
+            }
         }
 
         if (location.hasAccuracy()) {
             accuracyTextView.setText(String.format("Genauigkeit: %.2f m", location.getAccuracy()));
-        } else {
-            accuracyTextView.setText("Genauigkeit: N/A");
         }
 
         if (location.hasBearing()) {
             bearingTextView.setText(String.format("Bewegungsrichtung: %.2f °", location.getBearing()));
-        } else {
-            bearingTextView.setText("Bewegungsrichtung: N/A");
         }
 
         long time = location.getTime();

@@ -20,51 +20,51 @@
             android:id="@+id/provider_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Provider:" />
+            android:text="Provider: N/A" />
 
         <TextView
             android:id="@+id/latitude_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Breitengrad:" />
+            android:text="Breitengrad: N/A" />
 
         <TextView
             android:id="@+id/longitude_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Längengrad:" />
+            android:text="Längengrad: N/A" />
 
         <TextView
             android:id="@+id/altitude_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Höhe:" />
+            android:text="Höhe: N/A" />
 
         <TextView
             android:id="@+id/speed_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Geschwindigkeit:" />
+            android:text="Geschwindigkeit: N/A" />
 
         <TextView
             android:id="@+id/accuracy_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Genauigkeit:" />
+            android:text="Genauigkeit: N/A" />
 
         <TextView
             android:id="@+id/bearing_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bewegungsrichtung:" />
+            android:text="Bewegungsrichtung: N/A" />
 
         <TextView
             android:id="@+id/time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Uhrzeit:" />
+            android:text="Uhrzeit: N/A" />
 
     </LinearLayout>
 
