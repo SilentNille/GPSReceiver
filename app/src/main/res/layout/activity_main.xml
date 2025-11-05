@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/altitude_text"
-            android.layout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Höhe:" />
 
@@ -58,7 +58,7 @@
             android:id="@+id/bearing_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kurs:" />
+            android:text="Bewegungsrichtung:" />
 
         <TextView
             android:id="@+id/time_text"

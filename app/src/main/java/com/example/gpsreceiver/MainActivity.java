@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private TextView accuracyTextView;
     private TextView bearingTextView;
     private TextView timeTextView;
+    private TextView providerTextView;
 
     private LocationManager locationManager;
     private String currentProvider = LocationManager.GPS_PROVIDER;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         accuracyTextView = findViewById(R.id.accuracy_text);
         bearingTextView = findViewById(R.id.bearing_text);
         timeTextView = findViewById(R.id.time_text);
+        providerTextView = findViewById(R.id.provider_text);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -83,24 +85,38 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-        double altitude = location.getAltitude();
-        float speed = location.getSpeed();
-        float accuracy = location.getAccuracy();
-        float bearing = location.getBearing();
-        long time = location.getTime();
+        providerTextView.setText("Provider: " + location.getProvider());
 
+        latitudeTextView.setText(String.format("Breitengrad: %.6f", location.getLatitude()));
+        longitudeTextView.setText(String.format("Längengrad: %.6f", location.getLongitude()));
+
+        if (location.hasAltitude()) {
+            altitudeTextView.setText(String.format("Höhe: %.2f m", location.getAltitude()));
+        } else {
+            altitudeTextView.setText("Höhe: N/A");
+        }
+
+        if (location.hasSpeed()) {
+            speedTextView.setText(String.format("Geschwindigkeit: %.2f km/h", location.getSpeed() * 3.6));
+        } else {
+            speedTextView.setText("Geschwindigkeit: N/A");
+        }
+
+        if (location.hasAccuracy()) {
+            accuracyTextView.setText(String.format("Genauigkeit: %.2f m", location.getAccuracy()));
+        } else {
+            accuracyTextView.setText("Genauigkeit: N/A");
+        }
+
+        if (location.hasBearing()) {
+            bearingTextView.setText(String.format("Bewegungsrichtung: %.2f °", location.getBearing()));
+        } else {
+            bearingTextView.setText("Bewegungsrichtung: N/A");
+        }
+
+        long time = location.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         String formattedTime = sdf.format(new Date(time));
-
-        latitudeTextView.setText(String.format("Breitengrad: %.6f", latitude));
-        longitudeTextView.setText(String.format("Längengrad: %.6f", longitude));
-        altitudeTextView.setText(String.format("Höhe: %.2f m", altitude));
-        speedTextView.setText(String.format("Geschwindigkeit: %.2f km/h", speed * 3.6));
-
-        accuracyTextView.setText(String.format("Genauigkeit: %.2f m", accuracy));
-        bearingTextView.setText(String.format("Bewegungsrichtung: %.2f °", bearing));
         timeTextView.setText("Uhrzeit: " + formattedTime);
     }
 
